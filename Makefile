@@ -1,4 +1,10 @@
-all: test
+all: main test
+
+main: main.o board.o
+	gcc main.o board.o -o tictactoe
+
+main.o: src/main.c src/board.h
+	gcc -c src/main.c -o main.o
 
 test: test.o test_board.o board.o
 	gcc test.o test_board.o board.o -o test_bin && ./test_bin

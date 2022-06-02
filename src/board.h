@@ -23,14 +23,37 @@
  * thought of as a bitmask representing all coordintaes currently occupied
  * by any piece. The current_player_pieces bitfield shows coordinates occupied
  * by pieces of the current player.
+ * 
+ * The current_player bit represents the current player being either noughts
+ * (0) or crosses (1).
  */
 typedef struct
 {
     unsigned int current_player_pieces:9;
     unsigned int mask:9;
+    unsigned int current_player:1;
 } board;
 
 /**
+ * @param b: pointer to a board struct
+ * @return 1 if current player has won, 0 otherwise
+ */
+int check_win(board *b);
+
+/**
+ * @param b: pointer to a board struct
+ * @return 1 if board full, 0 otherwise
+ */
+int board_full(board *b);
+
+/**
+ * Invert the board so that the current player alternates
+ * @param b: pointer to a board struct
+ */
+void invert_board(board *b);
+
+/**
+ * Place a current player piecce on a given coordinate if possible.
  * @param b: pointer to a board struct
  * @param row: row index
  * @param col: col index
@@ -53,3 +76,18 @@ int is_legal_move(board *b, short row, short col);
  * coordinates
  */
 int generate_piece_mask(short row, short col);
+
+/**
+ * Print the board to the screen.
+ * @param b: pointer to board struct
+ * @param current_cross: whether or not current player should be drawn as cross
+ */
+void print_board(board *b);
+
+/**
+ * @param b: pointer to a board struct
+ * @param row: row index
+ * @param col: col index
+ * @return character representation of a particular coordinate on the board
+ */
+char get_piece_as_char(board *b, short row, short col);
